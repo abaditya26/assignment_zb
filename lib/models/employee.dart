@@ -21,12 +21,12 @@ class Employee {
   });
 
   // Factory method to create an Employee object from a map
-  factory Employee.fromMap(Map<String, dynamic> map) {
+  factory Employee.fromMap(Map<String, dynamic> map, String id) {
     print(map['joiningDate'].toString());
     DateTime dateTime = map['joiningDate'].toDate();
 
     return Employee(
-      uid: map['uid'],
+      uid: id,
       name: map['name'],
       email: map['email'],
       department: map['department'],

@@ -1,10 +1,11 @@
 import 'package:assignment_bn/models/employee.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class DatabaseService{
+class DatabaseService {
+  final _db = FirebaseFirestore.instance;
 
   Future<void> pushData(Employee newEmployee) async {
-    await FirebaseFirestore.instance.collection('employees').add({
+    await _db.collection('employees').add({
       'uid': newEmployee.uid,
       'name': newEmployee.name,
       'email': newEmployee.email,
@@ -16,10 +17,14 @@ class DatabaseService{
     });
   }
 
-
-
   Stream<QuerySnapshot> getEmployeesStream() {
-    final CollectionReference _employeesCollection = FirebaseFirestore.instance.collection('employees');
+    final CollectionReference _employeesCollection =
+        FirebaseFirestore.instance.collection('employees');
     return _employeesCollection.snapshots();
+  }
+
+  //delete operation
+  Future<void> deleteData(String id) async {
+    return await _db.collection("employees").doc(id).delete();
   }
 }

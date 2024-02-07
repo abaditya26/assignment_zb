@@ -101,7 +101,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
             itemBuilder: (BuildContext context, int index) {
               var employeeData = snapshot.data!.docs[index].data()
                   as Map<String, dynamic>;
-              var employee = Employee.fromMap(employeeData);
+              final uid = snapshot.data!.docs[index].id;
+              var employee = Employee.fromMap(employeeData, uid);
               return EmployeeCard(employee: employee);
             },
           );
